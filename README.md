@@ -27,7 +27,7 @@ This analysis aims to:
 
 ---
 ##### **DATA SOURCE**
-This data was downloaded from [Kaggle]().
+This data was downloaded from [Kaggle.com]()
 Columns included: `Country Name`, `Country Code`, `Year`, `Suicide Rate`.
 
 ---
@@ -56,3 +56,89 @@ Columns included: `Country Name`, `Country Code`, `Year`, `Suicide Rate`.
 The dataset is complete (no missing values) but contains substantial duplicate rows. Russia shows the highest single suicide mortality rate (51.79 in 2001). Nigeria's peak in the data was modest (5.37 in 2001). During the COVID-19 year of 2020, Suriname had the highest recorded rate (28.47). Between 2005-2010, 23 countries had rates above 20.
 The dataset reveals that suicide mortality is a complex global issue shaped by economic, cultural, and health-system factors. Each country follows a unique trajectory, and international comparison shows striking differences. The COVID-19 pandemic year marked significant changes, reinforcing the importance of mental-health interventions during global crises.
 Overall, the analysis provides a strong basis for policymakers, researchers, and public-health practitioners to understand where intervention is most urgently needed and which countries or years require deeper investigation.
+
+---
+###### ***Code behind my work***
+# **Statistical analysis**
+import pandas as pd
+World_suicide = pd.read_csv(r"C:\Users\DELL\Documents\bluetooth\world_suicide.csv")
+World_suicide
+Country Name	| Country Code	| Year	| Suicide Rate
+0	South Asia   (IDA & IBRD)	TSA	2010	14.519217
+1	Spain	ESP	2014	8.600000
+2	Vanuatu	VUT	2010	16.920000
+3	Guatemala	GTM	2005	9.020000
+4	Africa Western and Central	AFW	2005	5.567678
+...	...	...	...	...
+5212	Africa Western and Central	AFW	2012	5.850095
+5213	Central Europe and the Baltics	CEB	2013	17.062501
+5214	El Salvador	SLV	2000	7.680000
+5215	Pacific island small states	PSS	2004	12.760230
+5216	Gabon	GAB	2003	8.360000
+5217 rows × 4 columns
+# To check for duplicate entries/rows
+duplicates = World_suicide.duplicated().sum()
+duplicates
+np.int64(1892)
+# To check for missing values
+missing_values = World_suicide.isnull().sum()
+missing_values
+Country Name    0
+Country Code    0
+Year            0
+Suicide Rate    0
+dtype: int64
+# To check for the year that nigeria recorded its highest suicide mortalty rate
+nigeria_peak = World_suicide[World_suicide['Country Name'] == 'Nigeria'].sort_values('Suicide Rate', ascending=False).head(1)
+nigeria_peak
+Country Name	Country Code	Year	Suicide Rate
+1618	| Nigeria	| NGA	| 2001	| 5.37
+
+# To find the number of countries in the dataset
+countries_count = World_suicide['Country Name'].nunique()
+countries_count
+233
+# To check for the country with the highest suicide mortality rate
+highest_country = World_suicide.loc[World_suicide['Suicide Rate'].idxmax()]
+highest_country
+Country Name:    Russian Federation
+Country Code:                   RUS
+Year:                          2001
+Suicide Rate:                 51.79
+Name: 1401, dtype: object
+# To check for Nigeria VS Niger in 2015
+compare_2015 = World_suicide[(World_suicide['Year'] == 2015) & (World_suicide['Country Name'].isin(['Nigeria','Niger']))]
+compare_2015
+Country Name	| Country Code	| Year	| Suicide Rate
+3652	| Nigeria	| NGA	| 2015	| 4.46
+
+# To check for the highest mortality rate in COVID-19 year (2020)
+covid_2020 = World_suicide[World_suicide['Year'] == 2020]
+country_covid_peak = covid_2020.loc[covid_2020['Suicide Rate'].idxmax()]
+country_covid_peak
+Country Name:    Suriname
+Country Code:         SUR
+Year:                2020
+Suicide Rate:       28.47
+Name: 4721, dtype: object
+# To check for the highest mortality rate for each country
+highest_each_country = World_suicide.groupby('Country Name')['Suicide Rate'].max()
+highest_each_country
+Country Name
+Afghanistan                     4.380000
+Africa Eastern and Southern     7.953714
+Africa Western and Central      5.871657
+Albania                         7.090000
+Algeria                         4.180000
+                                 ...    
+West Bank and Gaza              0.920000
+World                          12.507066
+Yemen, Rep.                     5.800000
+Zambia                          7.130000
+Zimbabwe                       17.340000
+Name: Suicide Rate, Length: 233, dtype: float64
+# To check for countries with suicide rates greater than 20 (>20) between 2005 and 2010
+countries_greater_20 = (World_suicide['Year'] >= 2005) & (World_suicide['Year'] <= 2010) & (World_suicide['Suicide Rate'] > 20)
+countries_gt_20 = World_suicide[countries_greater_20] ['Country Name'].nunique()
+countries_gt_20
+23
