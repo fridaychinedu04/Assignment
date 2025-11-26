@@ -32,7 +32,7 @@ Columns included: `Country Name`, `Country Code`, `Year`, `Suicide Rate`.
 
 ---
 ###### **KEY FINDINGS**
->- Are there any missing values in the dataset?
+>- Are there any duplicate entries in the dataset?
     - Yes. There are **1,892 duplicate rows**
 >- Are there any missing values in the dataset?
     - No. All columns (`Country Name`, `Country Code`, `Year`, `Suicide Rate`) have **0 missing values**
