@@ -142,3 +142,4 @@ countries_greater_20 = (World_suicide['Year'] >= 2005) & (World_suicide['Year'] 
 countries_gt_20 = World_suicide[countries_greater_20] ['Country Name'].nunique()
 countries_gt_20
 23
+![alt="World_Suicide width="2%"](<Screenshot (1).png>)
