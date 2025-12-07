@@ -142,4 +142,7 @@ countries_greater_20 = (World_suicide['Year'] >= 2005) & (World_suicide['Year'] 
 countries_gt_20 = World_suicide[countries_greater_20] ['Country Name'].nunique()
 countries_gt_20
 23
-![alt="World_Suicide width="2%"](<Screenshot (1).png>)
+
+---
+###### **Graphical Representation of Suicidal Rate across Nigeria, Ghana, Angola and the United States**
+<img src="Screenshot (1)-2.png" alt="World Suicide">
