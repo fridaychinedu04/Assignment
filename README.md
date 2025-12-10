@@ -145,4 +145,3 @@ countries_gt_20
 
 ---
 ###### **Graphical Representation of Suicidal Rate across Nigeria, Ghana, Angola and the United States**
-<img src="Screenshot (1)-2.png" alt="World Suicide">
